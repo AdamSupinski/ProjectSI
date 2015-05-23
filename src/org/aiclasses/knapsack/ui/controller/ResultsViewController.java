@@ -151,16 +151,15 @@ public class ResultsViewController
                     result.setTotalValue(totalValue);
                     resultsTableView.getItems().add(result);
                     progressBar.setProgress((double) population / (double) mainApp.getAppData().getIterations());
-
-                    try
-                    {
-                        Thread.sleep(300);
-                    }
-                    catch (InterruptedException e)
-                    {
-                        e.printStackTrace();
-                    }
                 });
+                try
+                {
+                    Thread.sleep(300);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
             });
             startTime = System.currentTimeMillis();
             List<Treasure> gaSolution = knapsackGA.solve(treasures, mainApp.getAppData().getKnapsack());
