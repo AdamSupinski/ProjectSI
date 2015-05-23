@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+            fx:controller="org.aiclasses.knapsack.ui.controller.ResultsViewController">
+    <children>
+        <GridPane layoutX="346.0" layoutY="222.0" prefHeight="121.0" prefWidth="178.0" AnchorPane.bottomAnchor="47.0"
+                  AnchorPane.rightAnchor="10.0">
+            <children>
+                <Label prefHeight="38.0" prefWidth="114.0" text="Ilość poprawnych rozwiązań:" textAlignment="CENTER"
+                       wrapText="true" GridPane.vgrow="ALWAYS"/>
+                <Label text="Średni błąd:" textAlignment="CENTER" GridPane.rowIndex="1"/>
+                <Label text="Czas liczenia GA:" GridPane.rowIndex="3"/>
+                <Label fx:id="correctSolutionsLabel" text="Nieznany" GridPane.columnIndex="1"/>
+                <Label text="Max. błąd:" GridPane.rowIndex="2"/>
+                <Label fx:id="averageErrorLabel" text="Nieznany" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label fx:id="maximalErrorLabel" text="Nieznany" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label fx:id="calculateTimeLabel" text="Nieznany" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0"
+                                   prefWidth="118.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0"
+                                   prefWidth="67.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
+            </rowConstraints>
+        </GridPane>
+        <TableView fx:id="geneticTableView" layoutX="33.0" layoutY="194.0" prefHeight="160.0" prefWidth="178.0"
+                   AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="weightGeneticTableColumn" prefWidth="137.0" text="Waga"/>
+                <TableColumn fx:id="valueGeneticTableColumn" prefWidth="136.0" text="Wartość"/>
+            </columns>
+        </TableView>
+        <TableView fx:id="resultsTableView" layoutX="148.0" layoutY="10.0" prefHeight="129.0" prefWidth="502.0"
+                   AnchorPane.bottomAnchor="207.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="iterationNumberColumn" prefWidth="75.0" text="Nr iteracji"/>
+                <TableColumn fx:id="totalWeightColumn" prefWidth="75.0" text="Łączna wartość"/>
+                <TableColumn fx:id="totalValueColumn" prefWidth="75.0" text="Łączna waga"/>
+            </columns>
+        </TableView>
+        <ProgressBar fx:id="progressBar" layoutX="15.0" layoutY="191.0" prefHeight="15.0" prefWidth="502.0"
+                     progress="0.0" AnchorPane.bottomAnchor="179.0" AnchorPane.leftAnchor="15.0"
+                     AnchorPane.rightAnchor="13.0"/>
+        <Button fx:id="returnButton" defaultButton="true" layoutX="445.0" layoutY="353.0" mnemonicParsing="false"
+                onAction="#handleReturn" prefHeight="25.0" prefWidth="112.0" text="Powrót"
+                AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="43.0"/>
+        <TableView fx:id="dynamicTableView" layoutX="209.0" layoutY="230.0" prefHeight="160.0" prefWidth="178.0"
+                   AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="213.0">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="weightDynamicTableColumn" prefWidth="137.0" text="Waga"/>
+                <TableColumn fx:id="valueDynamicTableColumn" prefWidth="136.0" text="Wartość"/>
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
