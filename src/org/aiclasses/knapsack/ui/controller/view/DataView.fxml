@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="controller.DataViewController">
+            fx:controller="org.aiclasses.knapsack.ui.controller.controller.DataViewController">
     <children>
         <Label layoutX="406.0" layoutY="14.0" text="Dane przedmiotu"/>
         <Button fx:id="calculateButton" defaultButton="true" layoutX="341.0" layoutY="318.0" mnemonicParsing="false"

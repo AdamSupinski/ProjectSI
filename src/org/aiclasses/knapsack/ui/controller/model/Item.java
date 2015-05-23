@@ -1,19 +1,17 @@
-package model;
+package org.aiclasses.knapsack.ui.controller.model;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 
-/**
- * Created by adam on 22.05.15.
- */
 public class Item {
-    private DoubleProperty weight;
+    private IntegerProperty weight;
     private DoubleProperty value;
 
     public Item() {
         this(null, null);
     }
 
-    public Item(DoubleProperty weight, DoubleProperty value) {
+    public Item(IntegerProperty weight, DoubleProperty value) {
         this.weight = weight;
         this.value = value;
     }
@@ -34,11 +32,11 @@ public class Item {
         return weight.get();
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight.set(weight);
     }
 
-    public DoubleProperty weightProperty() {
+    public IntegerProperty weightProperty() {
         return weight;
     }
 }

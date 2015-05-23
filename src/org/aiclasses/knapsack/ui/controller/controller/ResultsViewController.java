@@ -1,9 +1,9 @@
-package controller;
+package org.aiclasses.knapsack.ui.controller.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import model.Item;
-import model.Result;
+import org.aiclasses.knapsack.ui.controller.model.Item;
+import org.aiclasses.knapsack.ui.controller.model.Result;
 
 
 /**
@@ -15,7 +15,7 @@ public class ResultsViewController {
     @FXML
     private TableColumn<Result, Integer> iterationNumberColumn;
     @FXML
-    private TableColumn<Result, Double> totalWeightColumn;
+    private TableColumn<Result, Integer> totalWeightColumn;
     @FXML
     private TableColumn<Result, Double> totalValueColumn;
 
@@ -25,14 +25,14 @@ public class ResultsViewController {
     @FXML
     private TableView<Item> geneticTableView;
     @FXML
-    private TableColumn<Item, Double> weightGeneticTableColumn;
+    private TableColumn<Item, Integer> weightGeneticTableColumn;
     @FXML
     private TableColumn<Item, Double> valueGeneticTableColumn;
 
     @FXML
     private TableView<Item> dynamicTableView;
     @FXML
-    private TableColumn<Item, Double> weightDynamicTableColumn;
+    private TableColumn<Item, Integer> weightDynamicTableColumn;
     @FXML
     private TableColumn<Item, Double> valueDynamicTableColumn;
 

@@ -1,4 +1,4 @@
-package controller;
+package org.aiclasses.knapsack.ui.controller.controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.AppData;
+import org.aiclasses.knapsack.ui.controller.model.AppData;
 
 import java.io.IOException;
 
@@ -41,7 +41,7 @@ public class MainApp extends Application {
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/RootLayout.fxml"));
+            loader.setLocation(MainApp.class.getResource("/org/aiclasses/knapsack/ui/controller/view/RootLayout.fxml"));
             rootLayout = loader.load();
 
             Scene scene = new Scene(rootLayout);
@@ -59,7 +59,7 @@ public class MainApp extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/DataView.fxml"));
+            loader.setLocation(MainApp.class.getResource("/org/aiclasses/knapsack/ui/controller/view/DataView.fxml"));
             AnchorPane dataView = loader.load();
 
             rootLayout.setCenter(dataView);
@@ -78,7 +78,7 @@ public class MainApp extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("/view/ResultsView.fxml"));
+            loader.setLocation(MainApp.class.getResource("/org/aiclasses/knapsack/ui/controller/view/ResultsView.fxml"));
             AnchorPane dataView = loader.load();
 
             rootLayout.setCenter(dataView);

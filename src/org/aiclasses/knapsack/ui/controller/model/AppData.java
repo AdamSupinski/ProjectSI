@@ -1,13 +1,10 @@
-package model;
+package org.aiclasses.knapsack.ui.controller.model;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * Created by adam on 22.05.15.
- */
 public class AppData {
     private ObservableList<Item> itemsObservableList = FXCollections.observableArrayList();
     private ObservableList<Result> resultsObservableList = FXCollections.observableArrayList();
@@ -20,10 +17,10 @@ public class AppData {
     private Integer knapsack;
 
     public AppData() {
-        itemsObservableList.add(new Item(new SimpleDoubleProperty(12.12), new SimpleDoubleProperty(31.31)));
-        resultsObservableList.add(new Result(new SimpleIntegerProperty(22), new SimpleDoubleProperty(33.33), new SimpleDoubleProperty(44.44)));
-        geneticKnapsackObservableList.add(new Item(new SimpleDoubleProperty(12.12), new SimpleDoubleProperty(31.31)));
-        dynamicKnapsackObservableList.add(new Item(new SimpleDoubleProperty(55.55), new SimpleDoubleProperty(66.66)));
+        itemsObservableList.add(new Item(new SimpleIntegerProperty(12), new SimpleDoubleProperty(31.31)));
+        resultsObservableList.add(new Result(new SimpleIntegerProperty(22), new SimpleDoubleProperty(33.33), new SimpleIntegerProperty(44)));
+        geneticKnapsackObservableList.add(new Item(new SimpleIntegerProperty(12), new SimpleDoubleProperty(31.31)));
+        dynamicKnapsackObservableList.add(new Item(new SimpleIntegerProperty(55), new SimpleDoubleProperty(66.66)));
     }
 
     public ObservableList<Item> getItemsObservableList() {

@@ -1,21 +1,18 @@
-package model;
+package org.aiclasses.knapsack.ui.controller.model;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 
-/**
- * Created by adam on 23.05.15.
- */
 public class Result {
     private IntegerProperty iterationNumber;
-    private DoubleProperty totalWeight;
+    private IntegerProperty totalWeight;
     private DoubleProperty totalValue;
 
     public Result() {
         this(null, null, null);
     }
 
-    public Result(IntegerProperty iterationNumber, DoubleProperty totalValue, DoubleProperty totalWeight) {
+    public Result(IntegerProperty iterationNumber, DoubleProperty totalValue, IntegerProperty totalWeight) {
         this.iterationNumber = iterationNumber;
         this.totalValue = totalValue;
         this.totalWeight = totalWeight;
@@ -37,11 +34,11 @@ public class Result {
         return totalWeight.get();
     }
 
-    public void setTotalWeight(double totalWeight) {
+    public void setTotalWeight(int totalWeight) {
         this.totalWeight.set(totalWeight);
     }
 
-    public DoubleProperty totalWeightProperty() {
+    public IntegerProperty totalWeightProperty() {
         return totalWeight;
     }
 

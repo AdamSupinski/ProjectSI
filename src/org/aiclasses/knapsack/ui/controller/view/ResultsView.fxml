@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
-            fx:controller="controller.ResultsViewController">
+            fx:controller="org.aiclasses.knapsack.ui.controller.controller.ResultsViewController">
     <children>
         <GridPane layoutX="346.0" layoutY="222.0" prefHeight="121.0" prefWidth="178.0" AnchorPane.bottomAnchor="47.0"
                   AnchorPane.rightAnchor="10.0">

@@ -1,23 +1,21 @@
-package controller;
+package org.aiclasses.knapsack.ui.controller.controller;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import model.Item;
+import org.aiclasses.knapsack.ui.controller.model.Item;
 
 
-/**
- * Created by adam on 22.05.15.
- */
 public class DataViewController {
     @FXML
     private TableView<Item> itemTableView;
     @FXML
-    private TableColumn<Item, Double> weightTableColumn;
+    private TableColumn<Item, Integer> weightTableColumn;
     @FXML
     private TableColumn<Item, Double> valueTableColumn;
 
@@ -84,13 +82,13 @@ public class DataViewController {
     @FXML
     private void handleAddItem() {
         try {
-            Double weight = Double.parseDouble(weightTextField.getText());
+            Integer weight = Integer.parseInt(weightTextField.getText());
             Double value = Double.parseDouble(valueTextField.getText());
 
             weightTextField.setText("");
             valueTextField.setText("");
 
-            Item item = new Item(new SimpleDoubleProperty(weight), new SimpleDoubleProperty(value));
+            Item item = new Item(new SimpleIntegerProperty(weight), new SimpleDoubleProperty(value));
 
             itemTableView.getItems().add(item);
         } catch (Exception e) {
