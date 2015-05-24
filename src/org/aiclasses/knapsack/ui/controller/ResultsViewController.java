@@ -1,8 +1,7 @@
 package org.aiclasses.knapsack.ui.controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -49,10 +48,15 @@ public class ResultsViewController
     @FXML
     private Label averageErrorLabel;
     @FXML
-    private Label maximalErrorLabel;
-    @FXML
     private Label calculateTimeLabel;
-
+    @FXML
+    private Label geneticWeightLabel;
+    @FXML
+    private Label geneticValueLabel;
+    @FXML
+    private Label dynamicWeightLabel;
+    @FXML
+    private Label dynamicValueLabel;
     @FXML
     private Button returnButton;
 
@@ -84,23 +88,50 @@ public class ResultsViewController
         thread.start();
     }
 
+    public void setMainApp(MainApp mainApp)
+    {
+        this.mainApp = mainApp;
+
+        resultsTableView.setItems(mainApp.getAppData().getResultsObservableList());
+
+        geneticTableView.setItems(mainApp.getAppData().getGeneticKnapsackObservableList());
+
+        dynamicTableView.setItems(mainApp.getAppData().getDynamicKnapsackObservableList());
+    }
+
+    @FXML
+    private void handleReturn()
+    {
+        mainApp.showDataView();
+    }
+
     class AlgorithmTask extends Task<Boolean>
     {
         List<Item> items;
 
-        public AlgorithmTask(List<Item> items)
-        {
+        public AlgorithmTask(List<Item> items) {
             this.items = items;
         }
 
+        protected Result summarize(ObservableList<Item> list) {
+            Result result = new Result();
+            result.setTotalValue(0.00);
+            result.setTotalWeight(0);
+
+            for (Item i : list) {
+                result.setTotalWeight((int) (i.getWeight() + result.getTotalWeight()));
+                result.setTotalValue(i.getValue() + result.getTotalValue());
+            }
+
+            return result;
+        }
+
         @Override
-        protected Boolean call() throws Exception
-        {
+        protected Boolean call() throws Exception {
             // prepare treasures
             Treasure[] treasures = new Treasure[items.size()];
             int i = 0;
-            for (Item item : items)
-            {
+            for (Item item : items) {
                 treasures[i] = new Treasure(item.getWeight(), item.getValue());
                 i++;
             }
@@ -112,16 +143,14 @@ public class ResultsViewController
             long endTime = System.currentTimeMillis();
             long dynamicTime = endTime - startTime;
             double dynamicScore = 0.0;
-            for (Treasure treasure : dynamicSolution)
-            {
+            for (Treasure treasure : dynamicSolution) {
                 dynamicScore += treasure.getValue();
             }
 
             // update dynamic tableview
             Platform.runLater(() -> {
                 mainApp.getAppData().getDynamicKnapsackObservableList().clear();
-                for (Treasure treasure : dynamicSolution)
-                {
+                for (Treasure treasure : dynamicSolution) {
                     Item item = new Item(treasure.getWeight(), treasure.getValue());
                     mainApp.getAppData().getDynamicKnapsackObservableList().add(item);
                 }
@@ -138,8 +167,7 @@ public class ResultsViewController
                     geneticTableView.getItems().clear();
                     int totalWeight = 0;
                     double totalValue = 0.0;
-                    for (Treasure treasure : solution)
-                    {
+                    for (Treasure treasure : solution) {
                         geneticTableView.getItems().add(new Item(treasure.getWeight(), treasure.getValue()));
                         totalWeight += treasure.getWeight();
                         totalValue += treasure.getValue();
@@ -152,12 +180,9 @@ public class ResultsViewController
                     resultsTableView.getItems().add(result);
                     progressBar.setProgress((double) population / (double) mainApp.getAppData().getIterations());
                 });
-                try
-                {
+                try {
                     Thread.sleep(300);
-                }
-                catch (InterruptedException e)
-                {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             });
@@ -166,8 +191,7 @@ public class ResultsViewController
             endTime = System.currentTimeMillis();
             long gaTime = endTime - startTime;
             double gaScore = 0.0;
-            for (Treasure treasure : gaSolution)
-            {
+            for (Treasure treasure : gaSolution) {
                 gaScore += treasure.getValue();
             }
 
@@ -176,28 +200,24 @@ public class ResultsViewController
             Platform.runLater(() -> {
                 averageErrorLabel.setText(String.format("%.2f%%", error * 100));
                 calculateTimeLabel.setText(gaTime + " ms");
+
+                Collections.sort(geneticTableView.getItems());
+                Collections.sort(dynamicTableView.getItems());
+
+                Result summarizeGenetic = summarize(geneticTableView.getItems());
+                geneticWeightLabel.setText(String.valueOf(summarizeGenetic.getTotalWeight()));
+                geneticValueLabel.setText(String.valueOf(summarizeGenetic.getTotalValue()));
+
+                Result summarizeDynamic = summarize(dynamicTableView.getItems());
+                dynamicWeightLabel.setText(String.valueOf(summarizeDynamic.getTotalWeight()));
+                dynamicValueLabel.setText(String.valueOf(summarizeDynamic.getTotalValue()));
+
             });
+
 
             return true;
         }
 
 
-    }
-
-    public void setMainApp(MainApp mainApp)
-    {
-        this.mainApp = mainApp;
-
-        resultsTableView.setItems(mainApp.getAppData().getResultsObservableList());
-
-        geneticTableView.setItems(mainApp.getAppData().getGeneticKnapsackObservableList());
-
-        dynamicTableView.setItems(mainApp.getAppData().getDynamicKnapsackObservableList());
-    }
-
-    @FXML
-    private void handleReturn()
-    {
-        mainApp.showDataView();
     }
 }

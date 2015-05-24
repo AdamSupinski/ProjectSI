@@ -5,7 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Item {
+public class Item implements Comparable<Item> {
     private IntegerProperty weight;
     private DoubleProperty value;
 
@@ -40,5 +40,10 @@ public class Item {
 
     public IntegerProperty weightProperty() {
         return weight;
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        return (int) (o.getValue() - this.getValue());
     }
 }

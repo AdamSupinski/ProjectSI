@@ -3,15 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+            minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8"
             fx:controller="org.aiclasses.knapsack.ui.controller.DataViewController">
     <children>
-        <Label layoutX="406.0" layoutY="14.0" text="Dane przedmiotu"/>
-        <Button fx:id="calculateButton" defaultButton="true" layoutX="341.0" layoutY="318.0" mnemonicParsing="false"
-                onAction="#handleCalculate" prefHeight="34.0" prefWidth="115.0" text="Oblicz"
-                AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="75.0"/>
-        <GridPane alignment="CENTER" layoutX="348.0" layoutY="30.0" prefHeight="302.0" prefWidth="249.0"
-                  AnchorPane.bottomAnchor="68.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="30.0">
+        <Label layoutX="505.0" layoutY="35.0" text="Dane przedmiotu"/>
+        <TableView fx:id="itemTableView" layoutX="10.0" layoutY="12.0" prefHeight="377.0" prefWidth="332.0"
+                   AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="258.0"
+                   AnchorPane.topAnchor="12.0">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="weightTableColumn" editable="false" prefWidth="152.0" text="Waga"/>
+                <TableColumn fx:id="valueTableColumn" editable="false" prefWidth="150.0" text="Wartość"/>
+            </columns>
+        </TableView>
+        <GridPane alignment="CENTER" layoutX="441.0" layoutY="53.0" prefHeight="387.0" prefWidth="263.0">
             <children>
                 <TextField fx:id="weightTextField" GridPane.columnIndex="1" GridPane.halignment="CENTER"
                            GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
@@ -35,6 +42,11 @@
                 <TextField fx:id="populationTextField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                 <TextField fx:id="knapsackTextField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
                 <Label text="Pojemność plecaka" textAlignment="CENTER" wrapText="true" GridPane.rowIndex="7"/>
+                <Button fx:id="calculateButton" defaultButton="true" mnemonicParsing="false" onAction="#handleCalculate"
+                        prefHeight="25.0" prefWidth="115.0" text="Oblicz" GridPane.rowIndex="8"/>
+                <Button fx:id="generateButton" mnemonicParsing="false" onAction="#handleGenerateData" prefHeight="25.0"
+                        prefWidth="115.0" text="Generuj dane" textAlignment="CENTER" wrapText="true"
+                        GridPane.columnIndex="1" GridPane.rowIndex="8"/>
             </children>
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="98.0" minWidth="10.0" prefWidth="86.0"/>
@@ -50,18 +62,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="ALWAYS"/>
+                <RowConstraints minHeight="10.0" prefHeight="50.0" valignment="CENTER" vgrow="ALWAYS"/>
             </rowConstraints>
         </GridPane>
-        <TableView fx:id="itemTableView" layoutX="10.0" layoutY="12.0" prefHeight="377.0" prefWidth="332.0"
-                   AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="258.0"
-                   AnchorPane.topAnchor="12.0">
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-            </columnResizePolicy>
-            <columns>
-                <TableColumn fx:id="weightTableColumn" editable="false" prefWidth="152.0" text="Waga"/>
-                <TableColumn fx:id="valueTableColumn" editable="false" prefWidth="150.0" text="Wartość"/>
-            </columns>
-        </TableView>
     </children>
 </AnchorPane>

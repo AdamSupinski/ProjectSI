@@ -15,6 +15,10 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
 
+    private RootLayoutController rootLayoutController;
+    private DataViewController dataViewController;
+    private ResultsViewController resultsViewController;
+
     private AppData appData;
 
     public MainApp() {
@@ -46,7 +50,12 @@ public class MainApp extends Application {
 
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+
+            rootLayoutController = loader.getController();
+            rootLayoutController.setMainApp(this);
+
             primaryStage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,8 +73,8 @@ public class MainApp extends Application {
 
             rootLayout.setCenter(dataView);
 
-            DataViewController controller = loader.getController();
-            controller.setMainApp(this);
+            dataViewController = loader.getController();
+            dataViewController.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,9 +92,9 @@ public class MainApp extends Application {
 
             rootLayout.setCenter(dataView);
 
-            ResultsViewController controller = loader.getController();
-            controller.setMainApp(this);
-            controller.runAlgorithmTask();
+            resultsViewController = loader.getController();
+            resultsViewController.setMainApp(this);
+            resultsViewController.runAlgorithmTask();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,5 +114,9 @@ public class MainApp extends Application {
 
     public void setAppData(AppData appData) {
         this.appData = appData;
+    }
+
+    public DataViewController getDataViewController() {
+        return dataViewController;
     }
 }

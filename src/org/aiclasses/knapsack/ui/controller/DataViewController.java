@@ -1,7 +1,5 @@
 package org.aiclasses.knapsack.ui.controller;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import org.aiclasses.knapsack.Treasure;
-import org.aiclasses.knapsack.dynamic.KnapsackDynamic;
+import org.aiclasses.knapsack.TreasureFactory;
 import org.aiclasses.knapsack.ui.model.Item;
 
 
@@ -43,6 +41,8 @@ public class DataViewController {
     private Button deleteItemButton;
     @FXML
     private Button calculateButton;
+    @FXML
+    private Button generateButton;
 
     private MainApp mainApp;
 
@@ -161,5 +161,22 @@ public class DataViewController {
             mainApp.getAppData().setItemsObservableList(itemTableView.getItems());
             mainApp.showResultsView();
         }
+    }
+
+    @FXML
+    private void handleGenerateData() {
+        try {
+            Integer knapsack = Integer.parseInt(knapsackTextField.getText());
+            Integer population = Integer.parseInt(populationTextField.getText());
+
+            Treasure[] treasures = TreasureFactory.generate(knapsack, population);
+
+            for (Treasure t : treasures) {
+                itemTableView.getItems().add(new Item(t.getWeight(), t.getValue()));
+            }
+        } catch (Exception e) {
+            return;
+        }
+
     }
 }
