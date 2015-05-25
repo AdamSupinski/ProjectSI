@@ -10,7 +10,8 @@ import org.aiclasses.knapsack.ui.model.AppData;
 
 import java.io.IOException;
 
-public class MainApp extends Application {
+public class MainApp extends Application
+{
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -21,18 +22,22 @@ public class MainApp extends Application {
 
     private AppData appData;
 
-    public MainApp() {
+    public MainApp()
+    {
         this.appData = new AppData();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage)
+    {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Knapsack Problem Solver");
+        this.primaryStage.setResizable(false);
 
         initRootLayout();
 
@@ -42,8 +47,10 @@ public class MainApp extends Application {
     /**
      * Initializes the root layout.
      */
-    public void initRootLayout() {
-        try {
+    public void initRootLayout()
+    {
+        try
+        {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/org/aiclasses/knapsack/ui/view/RootLayout.fxml"));
             rootLayout = loader.load();
@@ -56,7 +63,9 @@ public class MainApp extends Application {
 
             primaryStage.show();
 
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -64,9 +73,10 @@ public class MainApp extends Application {
     /**
      * Shows the DataView inside the RootLayout.
      */
-    public void showDataView() {
-        try {
-
+    public void showDataView()
+    {
+        try
+        {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/org/aiclasses/knapsack/ui/view/DataView.fxml"));
             AnchorPane dataView = loader.load();
@@ -75,7 +85,9 @@ public class MainApp extends Application {
 
             dataViewController = loader.getController();
             dataViewController.setMainApp(this);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -83,9 +95,10 @@ public class MainApp extends Application {
     /**
      * Shows the ResultsView inside the RootLayout.
      */
-    public void showResultsView() {
-        try {
-
+    public void showResultsView()
+    {
+        try
+        {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("/org/aiclasses/knapsack/ui/view/ResultsView.fxml"));
             AnchorPane dataView = loader.load();
@@ -95,28 +108,33 @@ public class MainApp extends Application {
             resultsViewController = loader.getController();
             resultsViewController.setMainApp(this);
             resultsViewController.runAlgorithmTask();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
     /**
      * Returns the main stage.
-     *
-     * */
-    public Stage getPrimaryStage() {
+     */
+    public Stage getPrimaryStage()
+    {
         return primaryStage;
     }
 
-    public AppData getAppData() {
+    public AppData getAppData()
+    {
         return appData;
     }
 
-    public void setAppData(AppData appData) {
+    public void setAppData(AppData appData)
+    {
         this.appData = appData;
     }
 
-    public DataViewController getDataViewController() {
+    public DataViewController getDataViewController()
+    {
         return dataViewController;
     }
 }

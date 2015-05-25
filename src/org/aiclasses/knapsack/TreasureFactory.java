@@ -12,7 +12,7 @@ public class TreasureFactory
     public static Treasure[] generate(int knapsackSize, int maxTreasures)
     {
         Random random = new Random();
-        Treasure[] treasures = new Treasure[random.nextInt(maxTreasures) + 1];
+        Treasure[] treasures = new Treasure[maxTreasures];
         for (int i = 0; i < treasures.length; i++)
         {
             treasures[i] = new Treasure(random.nextInt(knapsackSize/2) + 1, random.nextInt(100) + 1);

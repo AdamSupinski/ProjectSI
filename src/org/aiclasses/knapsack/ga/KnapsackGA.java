@@ -43,7 +43,7 @@ public class KnapsackGA
             Population copiedPopulation = copyPopulationTwice(population);
 
             // performing crossover
-            List<Chromosome> availableToCrossover = new ArrayList<Chromosome>(); // list for random picking
+            List<Chromosome> availableToCrossover = new ArrayList<>(); // list for random picking
             for (int j = 0; j < populationSize; j++)
             {
                 availableToCrossover.add(copiedPopulation.getChromosome(j));
@@ -130,7 +130,7 @@ public class KnapsackGA
             }
         }
 
-        List<Treasure> list = new ArrayList<Treasure>();
+        List<Treasure> list = new ArrayList<>();
         for (int i = 0; i < bestChromosome.getNumOfBits(); i++)
         {
             if (bestChromosome.getBit(i))
@@ -233,7 +233,7 @@ public class KnapsackGA
      */
     private void mutateOneBitToZero(Chromosome chromosome)
     {
-        ArrayList<Integer> onesIndex = new ArrayList<Integer>();
+        ArrayList<Integer> onesIndex = new ArrayList<>();
         for (int i = 0; i < chromosome.getNumOfBits(); i++)
         {
             if (chromosome.getBit(i))

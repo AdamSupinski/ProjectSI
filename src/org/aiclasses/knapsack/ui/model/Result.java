@@ -5,54 +5,66 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Result {
+public class Result
+{
     private IntegerProperty iterationNumber;
     private IntegerProperty totalWeight;
     private DoubleProperty totalValue;
 
-    public Result() {
+    public Result()
+    {
         this(0, 0.0, 0);
     }
 
-    public Result(Integer iterationNumber, Double totalValue, Integer totalWeight) {
+    public Result(Integer iterationNumber, Double totalValue, Integer totalWeight)
+    {
         this.iterationNumber = new SimpleIntegerProperty(iterationNumber);
         this.totalValue = new SimpleDoubleProperty(totalValue);
         this.totalWeight = new SimpleIntegerProperty(totalWeight);
     }
 
-    public double getIterationNumber() {
+    public double getIterationNumber()
+    {
         return iterationNumber.get();
     }
 
-    public void setIterationNumber(int iterationNumber) {
+    public void setIterationNumber(int iterationNumber)
+    {
         this.iterationNumber.set(iterationNumber);
     }
 
-    public IntegerProperty iterationNumberProperty() {
+    public IntegerProperty iterationNumberProperty()
+    {
         return iterationNumber;
     }
 
-    public double getTotalWeight() {
+    public double getTotalWeight()
+    {
         return totalWeight.get();
     }
 
-    public void setTotalWeight(int totalWeight) {
+    public void setTotalWeight(int totalWeight)
+    {
         this.totalWeight.set(totalWeight);
     }
 
-    public IntegerProperty totalWeightProperty() {
+    public IntegerProperty totalWeightProperty()
+    {
         return totalWeight;
     }
 
-    public double getTotalValue() {
+    public double getTotalValue()
+    {
         return totalValue.get();
     }
 
-    public void setTotalValue(double totalValue) {
+    public void setTotalValue(double totalValue)
+    {
         this.totalValue.set(totalValue);
     }
 
-    public DoubleProperty totalValueProperty() {
+    public DoubleProperty totalValueProperty()
+    {
         return totalValue;
     }
 }

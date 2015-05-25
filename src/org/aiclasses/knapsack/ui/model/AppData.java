@@ -5,7 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class AppData {
+public class AppData
+{
     private ObservableList<Item> itemsObservableList = FXCollections.observableArrayList();
     private ObservableList<Result> resultsObservableList = FXCollections.observableArrayList();
     private ObservableList<Item> geneticKnapsackObservableList = FXCollections.observableArrayList();
@@ -15,80 +16,110 @@ public class AppData {
     private Double crossover;
     private Double mutation;
     private Integer knapsack;
+    private Boolean steps;
 
-    public AppData() {
+    public AppData()
+    {
 
     }
 
-    public ObservableList<Item> getItemsObservableList() {
+    public ObservableList<Item> getItemsObservableList()
+    {
         return itemsObservableList;
     }
 
-    public void setItemsObservableList(ObservableList<Item> itemsObservableList) {
+    public void setItemsObservableList(ObservableList<Item> itemsObservableList)
+    {
         this.itemsObservableList = itemsObservableList;
     }
 
-    public Integer getIterations() {
+    public Integer getIterations()
+    {
         return iterations;
     }
 
-    public void setIterations(Integer iterations) {
+    public void setIterations(Integer iterations)
+    {
         this.iterations = iterations;
     }
 
-    public Double getCrossover() {
+    public Double getCrossover()
+    {
         return crossover;
     }
 
-    public void setCrossover(Double crossover) {
+    public void setCrossover(Double crossover)
+    {
         this.crossover = crossover;
     }
 
-    public Double getMutation() {
+    public Double getMutation()
+    {
         return mutation;
     }
 
-    public void setMutation(Double mutations) {
+    public void setMutation(Double mutations)
+    {
         this.mutation = mutations;
     }
 
-    public Integer getPopulation() {
+    public Integer getPopulation()
+    {
         return population;
     }
 
-    public void setPopulation(Integer population) {
+    public void setPopulation(Integer population)
+    {
         this.population = population;
     }
 
-    public Integer getKnapsack() {
+    public Integer getKnapsack()
+    {
         return knapsack;
     }
 
-    public void setKnapsack(Integer knapsack) {
+    public void setKnapsack(Integer knapsack)
+    {
         this.knapsack = knapsack;
     }
 
-    public ObservableList<Result> getResultsObservableList() {
+    public ObservableList<Result> getResultsObservableList()
+    {
         return resultsObservableList;
     }
 
-    public void setResultsObservableList(ObservableList<Result> resultsObservableList) {
+    public void setResultsObservableList(ObservableList<Result> resultsObservableList)
+    {
         this.resultsObservableList = resultsObservableList;
     }
 
-    public ObservableList<Item> getDynamicKnapsackObservableList() {
+    public ObservableList<Item> getDynamicKnapsackObservableList()
+    {
         return dynamicKnapsackObservableList;
     }
 
-    public void setDynamicKnapsackObservableList(ObservableList<Item> dynamicKnapsackObservableList) {
+    public void setDynamicKnapsackObservableList(ObservableList<Item> dynamicKnapsackObservableList)
+    {
         this.dynamicKnapsackObservableList = dynamicKnapsackObservableList;
     }
 
-    public ObservableList<Item> getGeneticKnapsackObservableList() {
+    public ObservableList<Item> getGeneticKnapsackObservableList()
+    {
         return geneticKnapsackObservableList;
     }
 
-    public void setGeneticKnapsackObservableList(ObservableList<Item> geneticKnapsackObservableList) {
+    public void setGeneticKnapsackObservableList(ObservableList<Item> geneticKnapsackObservableList)
+    {
         this.geneticKnapsackObservableList = geneticKnapsackObservableList;
+    }
+
+    public Boolean getSteps()
+    {
+        return steps;
+    }
+
+    public void setSteps(Boolean steps)
+    {
+        this.steps = steps;
     }
 }

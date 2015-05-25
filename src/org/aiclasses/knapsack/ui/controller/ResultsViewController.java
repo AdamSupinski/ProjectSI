@@ -93,9 +93,7 @@ public class ResultsViewController
         this.mainApp = mainApp;
 
         resultsTableView.setItems(mainApp.getAppData().getResultsObservableList());
-
         geneticTableView.setItems(mainApp.getAppData().getGeneticKnapsackObservableList());
-
         dynamicTableView.setItems(mainApp.getAppData().getDynamicKnapsackObservableList());
     }
 
@@ -105,20 +103,26 @@ public class ResultsViewController
         mainApp.showDataView();
     }
 
+    /**
+     * Task that runs dynamic and ga algorithm in new thread and updates UI
+     */
     class AlgorithmTask extends Task<Boolean>
     {
-        List<Item> items;
+        private List<Item> items;
 
-        public AlgorithmTask(List<Item> items) {
+        public AlgorithmTask(List<Item> items)
+        {
             this.items = items;
         }
 
-        protected Result summarize(ObservableList<Item> list) {
+        protected Result summarize(ObservableList<Item> list)
+        {
             Result result = new Result();
             result.setTotalValue(0.00);
             result.setTotalWeight(0);
 
-            for (Item i : list) {
+            for (Item i : list)
+            {
                 result.setTotalWeight((int) (i.getWeight() + result.getTotalWeight()));
                 result.setTotalValue(i.getValue() + result.getTotalValue());
             }
@@ -127,47 +131,59 @@ public class ResultsViewController
         }
 
         @Override
-        protected Boolean call() throws Exception {
+        protected Boolean call() throws Exception
+        {
             // prepare treasures
             Treasure[] treasures = new Treasure[items.size()];
             int i = 0;
-            for (Item item : items) {
+            for (Item item : items)
+            {
                 treasures[i] = new Treasure(item.getWeight(), item.getValue());
                 i++;
             }
 
             // dynamic solution
             KnapsackDynamic knapsackDynamic = new KnapsackDynamic();
-            long startTime = System.currentTimeMillis();
             List<Treasure> dynamicSolution = knapsackDynamic.solve(treasures, mainApp.getAppData().getKnapsack());
-            long endTime = System.currentTimeMillis();
-            long dynamicTime = endTime - startTime;
             double dynamicScore = 0.0;
-            for (Treasure treasure : dynamicSolution) {
+            for (Treasure treasure : dynamicSolution)
+            {
                 dynamicScore += treasure.getValue();
             }
 
             // update dynamic tableview
             Platform.runLater(() -> {
                 mainApp.getAppData().getDynamicKnapsackObservableList().clear();
-                for (Treasure treasure : dynamicSolution) {
+                for (Treasure treasure : dynamicSolution)
+                {
                     Item item = new Item(treasure.getWeight(), treasure.getValue());
                     mainApp.getAppData().getDynamicKnapsackObservableList().add(item);
                 }
+
+                Result summarizeDynamic = summarize(dynamicTableView.getItems());
+                dynamicWeightLabel.setText(String.valueOf(summarizeDynamic.getTotalWeight()));
+                dynamicValueLabel.setText(String.valueOf(summarizeDynamic.getTotalValue()));
+                Collections.sort(dynamicTableView.getItems());
             });
 
-            Platform.runLater(() -> {
-                resultsTableView.getItems().clear();
-            });
+            // clearing result tableview
+            Platform.runLater(() -> resultsTableView.getItems().clear());
 
             // ga solution
+            final boolean steps = mainApp.getAppData().getSteps();
+            final long[] presentationTime = {0}; // time taken to present data about steps
+
             KnapsackGA knapsackGA = new KnapsackGA(mainApp.getAppData().getPopulation(), mainApp.getAppData().getIterations(), mainApp.getAppData().getCrossover(), mainApp.getAppData().getMutation());
+            // inner class that handles data about every iteration
             knapsackGA.setListener((solution, population) -> {
+                long start = System.currentTimeMillis();
                 Platform.runLater(() -> {
+
                     geneticTableView.getItems().clear();
                     int totalWeight = 0;
                     double totalValue = 0.0;
-                    for (Treasure treasure : solution) {
+                    for (Treasure treasure : solution)
+                    {
                         geneticTableView.getItems().add(new Item(treasure.getWeight(), treasure.getValue()));
                         totalWeight += treasure.getWeight();
                         totalValue += treasure.getValue();
@@ -178,42 +194,58 @@ public class ResultsViewController
                     result.setTotalWeight(totalWeight);
                     result.setTotalValue(totalValue);
                     resultsTableView.getItems().add(result);
+                    resultsTableView.scrollTo(resultsTableView.getItems().size() - 1);
                     progressBar.setProgress((double) population / (double) mainApp.getAppData().getIterations());
+
+                    geneticValueLabel.setText(String.valueOf(totalValue));
+                    geneticWeightLabel.setText(String.valueOf(totalWeight));
                 });
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (steps)
+                {
+                    try
+                    {
+                        Thread.sleep(150);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
+                presentationTime[0] += System.currentTimeMillis() - start;
             });
-            startTime = System.currentTimeMillis();
+
+            long startTime = System.currentTimeMillis();
             List<Treasure> gaSolution = knapsackGA.solve(treasures, mainApp.getAppData().getKnapsack());
-            endTime = System.currentTimeMillis();
-            long gaTime = endTime - startTime;
+            long endTime = System.currentTimeMillis();
+            long gaTime = endTime - startTime - presentationTime[0];
             double gaScore = 0.0;
-            for (Treasure treasure : gaSolution) {
+            for (Treasure treasure : gaSolution)
+            {
                 gaScore += treasure.getValue();
             }
 
             double error = 1.0 - gaScore / dynamicScore;
 
+            // setting result labels
             Platform.runLater(() -> {
                 averageErrorLabel.setText(String.format("%.2f%%", error * 100));
                 calculateTimeLabel.setText(gaTime + " ms");
 
                 Collections.sort(geneticTableView.getItems());
-                Collections.sort(dynamicTableView.getItems());
 
-                Result summarizeGenetic = summarize(geneticTableView.getItems());
-                geneticWeightLabel.setText(String.valueOf(summarizeGenetic.getTotalWeight()));
-                geneticValueLabel.setText(String.valueOf(summarizeGenetic.getTotalValue()));
+                List<Treasure> dynamicItems = new ArrayList<>(dynamicSolution);
+                int sameItems = 0;
+                for (Treasure treasure : gaSolution)
+                {
+                    if (dynamicItems.contains(treasure))
+                    {
+                        sameItems++;
+                        dynamicItems.remove(treasure);
+                    }
+                }
 
-                Result summarizeDynamic = summarize(dynamicTableView.getItems());
-                dynamicWeightLabel.setText(String.valueOf(summarizeDynamic.getTotalWeight()));
-                dynamicValueLabel.setText(String.valueOf(summarizeDynamic.getTotalValue()));
-
+                correctSolutionsLabel.setText(sameItems + "/" + dynamicSolution.size());
             });
-
 
             return true;
         }

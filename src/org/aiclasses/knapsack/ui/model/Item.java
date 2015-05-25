@@ -5,45 +5,55 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
-public class Item implements Comparable<Item> {
+public class Item implements Comparable<Item>
+{
     private IntegerProperty weight;
     private DoubleProperty value;
 
-    public Item() {
+    public Item()
+    {
         this(0, 0.0);
     }
 
-    public Item(Integer weight, Double value) {
+    public Item(Integer weight, Double value)
+    {
         this.weight = new SimpleIntegerProperty(weight);
         this.value = new SimpleDoubleProperty(value);
     }
 
-    public double getValue() {
+    public double getValue()
+    {
         return value.get();
     }
 
-    public void setValue(double value) {
+    public void setValue(double value)
+    {
         this.value.set(value);
     }
 
-    public DoubleProperty valueProperty() {
+    public DoubleProperty valueProperty()
+    {
         return value;
     }
 
-    public int getWeight() {
+    public int getWeight()
+    {
         return weight.get();
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(int weight)
+    {
         this.weight.set(weight);
     }
 
-    public IntegerProperty weightProperty() {
+    public IntegerProperty weightProperty()
+    {
         return weight;
     }
 
     @Override
-    public int compareTo(Item o) {
+    public int compareTo(Item o)
+    {
         return (int) (o.getValue() - this.getValue());
     }
 }
