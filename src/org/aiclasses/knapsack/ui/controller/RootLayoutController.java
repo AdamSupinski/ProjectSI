@@ -40,7 +40,7 @@ public class RootLayoutController
         //Read from XML file to String
         try
         {
-            data = FileUtils.readFileToString(file, null);
+            data = FileUtils.readFileToString(file);
         }
         catch (IOException e)
         {
